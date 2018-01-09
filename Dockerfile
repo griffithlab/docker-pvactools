@@ -5,4 +5,4 @@ LABEL \
     description="Image for pVACtools"
 
 #pVACtools
-RUN pip install -e git+git://github.com/griffithlab/pVACtools@master#egg=pvacseq
+RUN pip install pvactools
