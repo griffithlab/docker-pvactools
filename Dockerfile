@@ -2,7 +2,7 @@ FROM continuumio/miniconda3
 MAINTAINER Susanna Kiwala <ssiebert@wustl.edu>
 
 LABEL \
-    description="Image for pVACtools"
+    description="Image for pVACtools" \
     version="1.0.8"
 
 #pVACtools
