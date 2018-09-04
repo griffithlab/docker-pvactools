@@ -6,4 +6,4 @@ LABEL \
     version="1.0.7"
 
 #pVACtools
-RUN pip install pvactools==1.0.7
+RUN pip install pvactools==1.0.7 \
