@@ -3,7 +3,7 @@ MAINTAINER Susanna Kiwala <ssiebert@wustl.edu>
 
 LABEL \
     description="Image for pVACtools"
-    version="1.0.3"
+    version="1.0.4"
 
 #pVACtools
-RUN pip install pvactools==1.0.3
+RUN pip install pvactools==1.0.4
