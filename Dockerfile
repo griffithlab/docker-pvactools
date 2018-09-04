@@ -5,4 +5,4 @@ LABEL \
     description="Image for pVACtools"
 
 #pVACtools
-RUN pip install pvactools
+RUN pip install pvactools==1.0.0
