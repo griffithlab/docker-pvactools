@@ -39,7 +39,7 @@ WORKDIR /opt/iedb
 RUN wget https://downloads.iedb.org/tools/mhcii/2.17.5/IEDB_MHC_II-2.17.5.tar.gz
 RUN tar -xzvf IEDB_MHC_II-2.17.5.tar.gz
 WORKDIR /opt/iedb/mhc_ii
-RUN bash -c "source activate pvactools_py27 && ./configure.py"
+RUN bash -c "source activate pvactools_py27 && /opt/conda/envs/pvactools_py27/bin/python ./configure.py"
 WORKDIR /opt/iedb
 RUN rm IEDB_MHC_II-2.17.5.tar.gz
 
