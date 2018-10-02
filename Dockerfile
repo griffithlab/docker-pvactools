@@ -18,6 +18,7 @@ LABEL \
 
 RUN apt-get update && apt-get install -y \
     zlib1g-dev \
+    libbz2-dev \
     build-essential \
     tcsh \
     gawk
