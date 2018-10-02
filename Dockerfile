@@ -17,6 +17,7 @@ LABEL \
     version="1.1.0_mhci_2.19.1_mhcii_2.17.5"
 
 RUN apt-get update && apt-get install -y \
+    zlib1g-dev \
     build-essential \
     tcsh \
     gawk
