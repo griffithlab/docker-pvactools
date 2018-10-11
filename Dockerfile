@@ -14,7 +14,7 @@ MAINTAINER Susanna Kiwala <ssiebert@wustl.edu>
 
 LABEL \
     description="Image for pVACtools" \
-    version="1.1.0_mhci_2.19.1_mhcii_2.17.5"
+    version="1.1.1_mhci_2.19.1_mhcii_2.17.5"
 
 RUN apt-get update && apt-get install -y \
     tcsh \
@@ -46,5 +46,5 @@ RUN rm IEDB_MHC_II-2.17.5.tar.gz
 #pVACtools 1.1.0
 ENV MHCFLURRY_DOWNLOADS_CURRENT_RELEASE=1.2.0
 ENV MHCFLURRY_DATA_DIR=/tmp/
-RUN pip install pvactools==1.1.0
+RUN pip install pvactools==1.1.1
 RUN mhcflurry-downloads fetch
