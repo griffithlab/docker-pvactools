@@ -44,7 +44,8 @@ WORKDIR /opt/iedb
 RUN rm IEDB_MHC_II-2.17.5.tar.gz
 
 #pVACtools 1.1.0
+RUN mkdir /opt/mhcflurry_data
 ENV MHCFLURRY_DOWNLOADS_CURRENT_RELEASE=1.2.0
-ENV MHCFLURRY_DATA_DIR=/tmp/
+ENV MHCFLURRY_DATA_DIR=/opt/mhcflurry_data
 RUN pip install pvactools==1.1.1
 RUN mhcflurry-downloads fetch
