@@ -14,7 +14,7 @@ MAINTAINER Susanna Kiwala <ssiebert@wustl.edu>
 
 LABEL \
     description="Image for pVACtools" \
-    version="1.3.7_mhci_2.19.1_mhcii_2.17.5"
+    version="1.3.7_mhci_2.19.2_mhcii_2.17.6"
 
 RUN apt-get update && apt-get install -y \
     tcsh \
@@ -27,22 +27,22 @@ COPY LICENSE /opt/iedb/.
 
 #IEDB MHC I 2.19.1
 WORKDIR /opt/iedb
-RUN wget https://downloads.iedb.org/tools/mhci/2.19.1/IEDB_MHC_I-2.19.1.tar.gz
-RUN tar -xzvf IEDB_MHC_I-2.19.1.tar.gz
+RUN wget https://downloads.iedb.org/tools/mhci/2.19.2/IEDB_MHC_I-2.19.2.tar.gz
+RUN tar -xzvf IEDB_MHC_I-2.19.2.tar.gz
 WORKDIR /opt/iedb/mhc_i
 RUN bash -c "source activate pvactools_py27 && ./configure"
 COPY netmhccons_1_1_python_interface.py /opt/iedb/mhc_i/method/netmhccons-1.1-executable/netmhccons_1_1_executable/netmhccons_1_1_python_interface.py
 WORKDIR /opt/iedb
-RUN rm IEDB_MHC_I-2.19.1.tar.gz
+RUN rm IEDB_MHC_I-2.19.2.tar.gz
 
 #IEDB MHC II 2.17.5
 WORKDIR /opt/iedb
-RUN wget https://downloads.iedb.org/tools/mhcii/2.17.5/IEDB_MHC_II-2.17.5.tar.gz
-RUN tar -xzvf IEDB_MHC_II-2.17.5.tar.gz
+RUN wget https://downloads.iedb.org/tools/mhcii/2.17.6/IEDB_MHC_II-2.17.6.tar.gz
+RUN tar -xzvf IEDB_MHC_II-2.17.6.tar.gz
 WORKDIR /opt/iedb/mhc_ii
 RUN bash -c "source activate pvactools_py27 && /opt/conda/envs/pvactools_py27/bin/python ./configure.py"
 WORKDIR /opt/iedb
-RUN rm IEDB_MHC_II-2.17.5.tar.gz
+RUN rm IEDB_MHC_II-2.17.6.tar.gz
 
 #pVACtools 1.3.7
 RUN mkdir /opt/mhcflurry_data
