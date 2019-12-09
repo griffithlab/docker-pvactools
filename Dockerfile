@@ -14,7 +14,7 @@ MAINTAINER Susanna Kiwala <ssiebert@wustl.edu>
 
 LABEL \
     description="Image for pVACtools" \
-    version="1.5.3_mhci_2.19.2_mhcii_2.17.6"
+    version="1.5.4_mhci_2.19.2_mhcii_2.17.6"
 
 RUN apt-get update && apt-get install -y \
     tcsh \
@@ -47,12 +47,12 @@ RUN bash -l -c "conda activate pvactools_py27 && /opt/conda/envs/pvactools_py27/
 WORKDIR /opt/iedb
 RUN rm IEDB_MHC_II-2.17.6.tar.gz
 
-#pVACtools 1.5.3
+#pVACtools 1.5.4
 RUN mkdir /opt/mhcflurry_data
 ENV MHCFLURRY_DOWNLOADS_CURRENT_RELEASE=1.2.0
 ENV MHCFLURRY_DATA_DIR=/opt/mhcflurry_data
 RUN pip install Cython
 RUN pip install pysam==0.9.0
-RUN pip install pvactools==1.5.3
+RUN pip install pvactools==1.5.4
 RUN pip install mhcnuggets==2.2
 RUN mhcflurry-downloads fetch
