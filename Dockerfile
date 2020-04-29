@@ -49,7 +49,7 @@ RUN rm IEDB_MHC_II-2.17.6.tar.gz
 
 #pVACtools 1.5.8
 RUN mkdir /opt/mhcflurry_data
-ENV MHCFLURRY_DOWNLOADS_CURRENT_RELEASE=1.4.0
+ENV MHCFLURRY_DOWNLOADS_CURRENT_RELEASE=1.6.0
 ENV MHCFLURRY_DATA_DIR=/opt/mhcflurry_data
 RUN pip install Cython
 RUN pip install pysam==0.9.0
