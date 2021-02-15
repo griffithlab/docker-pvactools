@@ -49,7 +49,7 @@ RUN rm IEDB_MHC_II-3.1.2.tar.gz
 RUN mkdir /opt/mhcflurry_data
 ENV MHCFLURRY_DATA_DIR=/opt/mhcflurry_data
 RUN mkdir /data
-RUN pip install tensorflow==2.2.0
+RUN pip install tensorflow==2.2.2
 RUN pip install pvactools==2.0.0
 RUN mhcflurry-downloads fetch
 
