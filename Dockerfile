@@ -32,7 +32,7 @@ RUN wget https://downloads.iedb.org/tools/mhci/3.1.1/IEDB_MHC_I-3.1.1.tar.gz
 RUN tar -xzvf IEDB_MHC_I-3.1.1.tar.gz
 WORKDIR /opt/iedb/mhc_i
 RUN ./configure
-#COPY netmhccons_1_1_python_interface.py /opt/iedb/mhc_i/method/netmhccons-1.1-executable/netmhccons_1_1_executable/netmhccons_1_1_python_interface.py
+COPY netmhccons_1_1_python_interface.3.1.1.py /opt/iedb/mhc_i/method/netmhccons-1.1-executable/netmhccons_1_1_executable/netmhccons_1_1_python_interface.py
 WORKDIR /opt/iedb
 RUN rm IEDB_MHC_I-3.1.1.tar.gz
 
