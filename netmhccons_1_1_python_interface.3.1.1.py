@@ -67,17 +67,14 @@ def predict_peptide_list(peptide_list, allele_length_pair):
     logger.info('Calling netmhccons executable:\n%s', ' '.join(cmd))
     p = Popen(cmd, stdout=PIPE, stderr=PIPE)
     #process_status_code = p.wait()
-    process_status_code = p.returncode
     analysis_results, ignored_stderr = p.communicate()
-    analysis_results = analysis_results.decode()
-    #scores = parse_pickpocket_output(analysis_results)
-
+    process_status_code = p.returncode
 #     process_status_code = f.close()
     if process_status_code != 0:
         msg = 'Error calling netmhccons executable:\n{}'.format(' '.join(cmd))
         logger.error(msg)
         raise Exception(msg)
-
+    analysis_results = analysis_results.decode()
     scores = parse_pickpocket_output(analysis_results)
 
     os.remove(infile.name)
