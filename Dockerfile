@@ -14,7 +14,7 @@ MAINTAINER Susanna Kiwala <ssiebert@wustl.edu>
 
 LABEL \
     description="Image for pVACtools" \
-    version="2.0.3_mhci_3.1.1_mhcii_3.1.2"
+    version="3.0.0rc_mhci_3.1.1_mhcii_3.1.2"
 
 RUN apt-get update && apt-get install -y \
     tcsh \
@@ -45,12 +45,13 @@ RUN python ./configure.py
 WORKDIR /opt/iedb
 RUN rm IEDB_MHC_II-3.1.2.tar.gz
 
-#pVACtools 2.0.3
+#pVACtools 3.0.0rc
 RUN mkdir /opt/mhcflurry_data
 ENV MHCFLURRY_DATA_DIR=/opt/mhcflurry_data
-RUN mkdir /data
 RUN pip install tensorflow==2.2.2
-RUN pip install pvactools==2.0.3
+ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
+COPY pvactools-3.0.0rc5-py3-none-any.whl .
+RUN pip install pvactools-3.0.0rc5-py3-none-any.whl
 RUN mhcflurry-downloads fetch
 
 CMD ["/bin/bash"]
