@@ -45,6 +45,16 @@ RUN python ./configure.py
 WORKDIR /opt/iedb
 RUN rm IEDB_MHC_II-3.1.6.tar.gz
 
+#BLAST
+WORKDIR /opt
+RUN wget https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.12.0/ncbi-blast-2.12.0+-x64-linux.tar.gz
+RUN tar zxvpf ncbi-blast-2.12.0+-x64-linux.tar.gz
+RUN rm ncbi-blast-2.12.0+-x64-linux.tar.gz
+RUN mkdir /opt/blastdb
+ENV BLASTDB=/opt/blastdb
+WORKDIR /opt/blastdb
+RUN perl /opt/ncbi-blast-2.12.0+/bin/update_blastdb.pl --passive --decompress refseq_select_prot
+
 #pVACtools 3.0.0rc
 RUN mkdir /opt/mhcflurry_data
 ENV MHCFLURRY_DATA_DIR=/opt/mhcflurry_data
