@@ -14,7 +14,7 @@ MAINTAINER Susanna Kiwala <ssiebert@wustl.edu>
 
 LABEL \
     description="Image for pVACtools" \
-    version="3.0.0rc_mhci_3.1.2_mhcii_3.1.6"
+    version="3.0.0_mhci_3.1.2_mhcii_3.1.6"
 
 RUN apt-get update && apt-get install -y \
     tcsh \
@@ -55,13 +55,11 @@ ENV BLASTDB=/opt/blastdb
 WORKDIR /opt/blastdb
 RUN perl /opt/ncbi-blast-2.12.0+/bin/update_blastdb.pl --passive --decompress refseq_select_prot
 
-#pVACtools 3.0.0rc
+#pVACtools 3.0.0
 RUN mkdir /opt/mhcflurry_data
 ENV MHCFLURRY_DATA_DIR=/opt/mhcflurry_data
 RUN pip install tensorflow==2.2.2
-ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
-COPY pvactools-3.0.0rc5-py3-none-any.whl .
-RUN pip install pvactools-3.0.0rc5-py3-none-any.whl
+RUN pip install pvactools==3.0.0
 RUN mhcflurry-downloads fetch
 
 CMD ["/bin/bash"]
