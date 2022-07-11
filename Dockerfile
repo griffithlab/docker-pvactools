@@ -14,7 +14,7 @@ MAINTAINER Susanna Kiwala <ssiebert@wustl.edu>
 
 LABEL \
     description="Image for pVACtools without IEDB or BLAST" \
-    version="3.0.2"
+    version="3.0.3"
 
 RUN apt-get update && apt-get install -y \
     tcsh \
@@ -23,11 +23,11 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     gawk
 
-#pVACtools 3.0.2
+#pVACtools 3.0.3
 RUN mkdir /opt/mhcflurry_data
 ENV MHCFLURRY_DATA_DIR=/opt/mhcflurry_data
 RUN pip install tensorflow==2.2.2
-RUN pip install pvactools==3.0.2
+RUN pip install pvactools==3.0.3
 RUN mhcflurry-downloads fetch
 
 CMD ["/bin/bash"]
