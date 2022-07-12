@@ -26,6 +26,7 @@ RUN apt-get update && apt-get install -y \
 #pVACtools 3.0.2
 RUN mkdir /opt/mhcflurry_data
 ENV MHCFLURRY_DATA_DIR=/opt/mhcflurry_data
+RUN pip install protobuf==3.20.0
 RUN pip install tensorflow==2.2.2
 RUN pip install pvactools==3.0.2
 RUN mhcflurry-downloads fetch
