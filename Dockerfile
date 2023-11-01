@@ -14,7 +14,7 @@ MAINTAINER Susanna Kiwala <ssiebert@wustl.edu>
 
 LABEL \
     description="Image for pVACtools with IEDB" \
-    version="4.0.5_mhci_3.1.4_mhcii_3.1.9"
+    version="4.0.6_mhci_3.1.5_mhcii_3.1.11"
 
 RUN apt-get update && apt-get install -y \
     tcsh \
@@ -27,31 +27,31 @@ RUN apt-get update && apt-get install -y \
 RUN mkdir /opt/iedb
 COPY LICENSE /opt/iedb/.
 
-#IEDB MHC I 3.1.4
+#IEDB MHC I 3.1.5
 WORKDIR /opt/iedb
-RUN wget https://downloads.iedb.org/tools/mhci/3.1.4/IEDB_MHC_I-3.1.4.tar.gz
-RUN tar -xzvf IEDB_MHC_I-3.1.4.tar.gz
+RUN wget https://downloads.iedb.org/tools/mhci/3.1.5/IEDB_MHC_I-3.1.5.tar.gz
+RUN tar -xzvf IEDB_MHC_I-3.1.5.tar.gz
 WORKDIR /opt/iedb/mhc_i
 RUN ./configure
 COPY netmhccons_1_1_python_interface.3.1.1.py /opt/iedb/mhc_i/method/netmhccons-1.1-executable/netmhccons_1_1_executable/netmhccons_1_1_python_interface.py
 WORKDIR /opt/iedb
-RUN rm IEDB_MHC_I-3.1.4.tar.gz
+RUN rm IEDB_MHC_I-3.1.5.tar.gz
 
-#IEDB MHC II 3.1.9
+#IEDB MHC II 3.1.11
 WORKDIR /opt/iedb
-RUN wget https://downloads.iedb.org/tools/mhcii/3.1.9/IEDB_MHC_II-3.1.9.tar.gz
-RUN tar -xzvf IEDB_MHC_II-3.1.9.tar.gz
+RUN wget https://downloads.iedb.org/tools/mhcii/3.1.11/IEDB_MHC_II-3.1.11.tar.gz
+RUN tar -xzvf IEDB_MHC_II-3.1.11.tar.gz
 WORKDIR /opt/iedb/mhc_ii
 RUN python ./configure.py -k netmhciipan -k smm -k nn
 WORKDIR /opt/iedb
-RUN rm IEDB_MHC_II-3.1.9.tar.gz
+RUN rm IEDB_MHC_II-3.1.11.tar.gz
 
-#pVACtools 4.0.5
+#pVACtools 4.0.6
 RUN mkdir /opt/mhcflurry_data
 ENV MHCFLURRY_DATA_DIR=/opt/mhcflurry_data
 RUN pip install protobuf==3.20.0
 RUN pip install tensorflow==2.2.2
-RUN pip install pvactools==4.0.5
+RUN pip install pvactools==4.0.6
 RUN mhcflurry-downloads fetch
 
 CMD ["/bin/bash"]
