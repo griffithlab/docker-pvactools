@@ -14,7 +14,7 @@ MAINTAINER Susanna Kiwala <ssiebert@wustl.edu>
 
 LABEL \
     description="Image for pVACtools with IEDB" \
-    version="4.0.6_mhci_3.1.5_mhcii_3.1.11"
+    version="4.0.7_mhci_3.1.5_mhcii_3.1.11"
 
 RUN apt-get update && apt-get install -y \
     tcsh \
@@ -46,12 +46,12 @@ RUN python ./configure.py -k netmhciipan -k smm -k nn
 WORKDIR /opt/iedb
 RUN rm IEDB_MHC_II-3.1.11.tar.gz
 
-#pVACtools 4.0.6
+#pVACtools 4.0.7
 RUN mkdir /opt/mhcflurry_data
 ENV MHCFLURRY_DATA_DIR=/opt/mhcflurry_data
 RUN pip install protobuf==3.20.0
 RUN pip install tensorflow==2.2.2
-RUN pip install pvactools==4.0.6
+RUN pip install pvactools==4.0.7
 RUN mhcflurry-downloads fetch
 
 CMD ["/bin/bash"]
