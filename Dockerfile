@@ -14,7 +14,7 @@ MAINTAINER Susanna Kiwala <ssiebert@wustl.edu>
 
 LABEL \
     description="Image for pVACtools with IEDB" \
-    version="4.4.1_mhci_3.1.6_mhcii_3.1.12"
+    version="5.0.0_mhci_3.1.6_mhcii_3.1.12"
 
 RUN apt-get update && apt-get install -y \
     tcsh \
@@ -37,21 +37,21 @@ COPY netmhccons_1_1_python_interface.3.1.1.py /opt/iedb/mhc_i/method/netmhccons-
 WORKDIR /opt/iedb
 RUN rm IEDB_MHC_I-3.1.6.tar.gz
 
-#IEDB MHC II 3.1.11
+#IEDB MHC II 3.1.12
 WORKDIR /opt/iedb
-RUN wget https://downloads.iedb.org/tools/mhcii/3.1.11/IEDB_MHC_II-3.1.11.tar.gz
-RUN tar -xzvf IEDB_MHC_II-3.1.11.tar.gz
+RUN wget https://downloads.iedb.org/tools/mhcii/3.1.12/IEDB_MHC_II-3.1.12.tar.gz
+RUN tar -xzvf IEDB_MHC_II-3.1.12.tar.gz
 WORKDIR /opt/iedb/mhc_ii
 RUN python ./configure.py -k netmhciipan -k smm -k nn
 WORKDIR /opt/iedb
-RUN rm IEDB_MHC_II-3.1.11.tar.gz
+RUN rm IEDB_MHC_II-3.1.12.tar.gz
 
-#pVACtools 4.4.1
+#pVACtools 5.0.0
 RUN mkdir /opt/mhcflurry_data
 ENV MHCFLURRY_DATA_DIR=/opt/mhcflurry_data
 RUN pip install protobuf==3.20.0
 RUN pip install tensorflow==2.2.2
-RUN pip install pvactools==4.4.1
+RUN pip install pvactools==5.0.0
 RUN pip install git+https://github.com/griffithlab/bigmhc.git#egg=bigmhc
 RUN pip install git+https://github.com/griffithlab/deepimmuno.git#egg=deepimmuno
 RUN mhcflurry-downloads fetch
