@@ -14,45 +14,41 @@ MAINTAINER Susanna Kiwala <ssiebert@wustl.edu>
 
 LABEL \
     description="Image for pVACtools with IEDB" \
-    version="5.5.0_mhci_3.1.6_mhcii_3.1.12"
+    version="5.5.1_mhci_3.1.6_mhcii_3.1.12"
 
-RUN apt-get update && apt-get install -y \
-    tcsh \
-    gcc \
-    build-essential \
-    zlib1g-dev \
-    gawk \
-    vim
+RUN apt-get update \
+    && apt-get install -y \
+        tcsh \
+        gcc \
+        build-essential \
+        zlib1g-dev \
+        gawk \
+        vim \
+    && apt-get clean
 
 RUN mkdir /opt/iedb
 COPY LICENSE /opt/iedb/.
 
 #IEDB MHC I 3.1.6
 WORKDIR /opt/iedb
-RUN wget https://downloads.iedb.org/tools/mhci/3.1.6/IEDB_MHC_I-3.1.6.tar.gz
-RUN tar -xzvf IEDB_MHC_I-3.1.6.tar.gz
+RUN wget https://downloads.iedb.org/tools/mhci/3.1.6/IEDB_MHC_I-3.1.6.tar.gz; tar -xzvf IEDB_MHC_I-3.1.6.tar.gz; rm IEDB_MHC_I-3.1.6.tar.gz
 WORKDIR /opt/iedb/mhc_i
 RUN ./configure
 COPY netmhccons_1_1_python_interface.3.1.1.py /opt/iedb/mhc_i/method/netmhccons-1.1-executable/netmhccons_1_1_executable/netmhccons_1_1_python_interface.py
-WORKDIR /opt/iedb
-RUN rm IEDB_MHC_I-3.1.6.tar.gz
 
 #IEDB MHC II 3.1.12
 WORKDIR /opt/iedb
-RUN wget https://downloads.iedb.org/tools/mhcii/3.1.12/IEDB_MHC_II-3.1.12.tar.gz
-RUN tar -xzvf IEDB_MHC_II-3.1.12.tar.gz
+RUN wget https://downloads.iedb.org/tools/mhcii/3.1.12/IEDB_MHC_II-3.1.12.tar.gz; tar -xzvf IEDB_MHC_II-3.1.12.tar.gz; rm IEDB_MHC_II-3.1.12.tar.gz
 WORKDIR /opt/iedb/mhc_ii
 RUN python ./configure.py -k netmhciipan -k smm -k nn
-WORKDIR /opt/iedb
-RUN rm IEDB_MHC_II-3.1.12.tar.gz
 
-#pVACtools 5.5.0
+#pVACtools 5.5.1
 RUN mkdir /opt/mhcflurry_data
 ENV MHCFLURRY_DATA_DIR=/opt/mhcflurry_data
-RUN pip install tensorflow==2.15.1
-RUN pip install pvactools==5.5.0
-RUN pip install git+https://github.com/griffithlab/bigmhc.git#egg=bigmhc
-RUN pip install git+https://github.com/griffithlab/deepimmuno.git#egg=deepimmuno
+RUN mkdir /data
+RUN pip install pvactools==5.5.1; pip cache purge
+RUN pip install git+https://github.com/griffithlab/bigmhc.git#egg=bigmhc; pip cache purge
+RUN pip install git+https://github.com/griffithlab/deepimmuno.git#egg=deepimmuno; pip cache purge
 RUN mhcflurry-downloads fetch
 
 CMD ["/bin/bash"]
