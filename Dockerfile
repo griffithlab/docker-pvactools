@@ -14,7 +14,7 @@ MAINTAINER Susanna Kiwala <ssiebert@wustl.edu>
 
 LABEL \
     description="Image for pVACtools with IEDB" \
-    version="6.0.4_mhci_3.1.6_mhcii_3.1.12"
+    version="6.0.5_mhci_3.1.6_mhcii_3.1.12"
 
 RUN apt-get update \
     && apt-get install -y \
@@ -45,10 +45,10 @@ RUN wget https://downloads.iedb.org/tools/mhcii/3.1.12/IEDB_MHC_II-3.1.12.tar.gz
 WORKDIR /opt/iedb/mhc_ii
 RUN python ./configure.py -k netmhciipan -k smm -k nn
 
-#pVACtools 6.0.4
+#pVACtools 6.0.5
 RUN mkdir /opt/mhcflurry_data
 ENV MHCFLURRY_DATA_DIR=/opt/mhcflurry_data
-RUN pip install pvactools==6.0.4; pip cache purge
+RUN pip install pvactools==6.0.5; pip cache purge
 RUN pip install git+https://github.com/griffithlab/bigmhc.git#egg=bigmhc; pip cache purge
 RUN pip install git+https://github.com/griffithlab/deepimmuno.git#egg=deepimmuno; pip cache purge
 RUN mhcflurry-downloads fetch
