@@ -14,7 +14,7 @@ MAINTAINER Susanna Kiwala <ssiebert@wustl.edu>
 
 LABEL \
     description="Image for pVACtools with IEDB" \
-    version="6.0.5_mhci_3.1.6_mhcii_3.1.12"
+    version="7.0.0b1_mhci_3.1.6_mhcii_3.1.12"
 
 RUN apt-get update \
     && apt-get install -y \
@@ -45,10 +45,38 @@ RUN wget https://downloads.iedb.org/tools/mhcii/3.1.12/IEDB_MHC_II-3.1.12.tar.gz
 WORKDIR /opt/iedb/mhc_ii
 RUN python ./configure.py -k netmhciipan -k smm -k nn
 
-#pVACtools 6.0.5
+#MixMHCpred
+WORKDIR /opt
+RUN git clone https://github.com/GfellerLab/MixMHCpred.git
+WORKDIR /opt/MixMHCpred
+RUN chmod +x MixMHCpred
+RUN pip install -r ./code/setup_pythonLibrary.txt; pip cache purge
+RUN apt-get update && apt-get install -y mafft && apt-get clean
+ENV PATH="$PATH:/opt/MixMHCpred"
+
+#PRIME
+WORKDIR /opt
+RUN git clone https://github.com/GfellerLab/PRIME.git
+WORKDIR /opt/PRIME
+ENV PATH="$PATH:/opt/PRIME"
+WORKDIR /opt/PRIME/lib
+RUN g++ -O3 PRIME.cc -o PRIME.x
+RUN rm -rf /opt/PRIME/temp
+RUN ln -s /tmp /opt/PRIME/temp
+
+#MixMHC2pred 2.0.2.2
+RUN mkdir /opt/MixMHC2pred
+WORKDIR /opt/MixMHC2pred
+RUN wget https://github.com/GfellerLab/MixMHC2pred/releases/download/v2.0.2.2/MixMHC2pred-2.0.zip; unzip MixMHC2pred-2.0.zip; rm MixMHC2pred-2.0.zip
+RUN chmod +x MixMHC2pred_unix
+ENV PATH="$PATH:/opt/MixMHC2pred"
+
+#pVACtools 7.0.0b1
 RUN mkdir /opt/mhcflurry_data
 ENV MHCFLURRY_DATA_DIR=/opt/mhcflurry_data
-RUN pip install pvactools==6.0.5; pip cache purge
+RUN mkdir /data
+COPY pvactools-7.0.0b1-py3-none-any.whl /data/pvactools-7.0.0b1-py3-none-any.whl
+RUN pip install /data/pvactools-7.0.0b1-py3-none-any.whl; pip cache purge
 RUN pip install git+https://github.com/griffithlab/bigmhc.git#egg=bigmhc; pip cache purge
 RUN pip install git+https://github.com/griffithlab/deepimmuno.git#egg=deepimmuno; pip cache purge
 RUN mhcflurry-downloads fetch
