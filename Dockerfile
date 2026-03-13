@@ -14,7 +14,7 @@ MAINTAINER Susanna Kiwala <ssiebert@wustl.edu>
 
 LABEL \
     description="Image for pVACtools with IEDB" \
-    version="7.0.0b1_mhci_3.1.6_mhcii_3.1.12"
+    version="7.0.0b1_tlmhc_mhci_3.1.6_mhcii_3.1.12"
 
 RUN apt-get update \
     && apt-get install -y \
@@ -73,15 +73,16 @@ RUN wget https://github.com/GfellerLab/MixMHC2pred/releases/download/v2.0.2.2/Mi
 RUN chmod +x MixMHC2pred_unix
 ENV PATH="$PATH:/opt/MixMHC2pred"
 
-#pVACtools 7.0.0b1
+#pVACtools 7.0.0b1_tlmhc
 RUN mkdir /opt/mhcflurry_data
 ENV MHCFLURRY_DATA_DIR=/opt/mhcflurry_data
 RUN mkdir /data
-COPY pvactools-7.0.0b1-py3-none-any.whl /data/pvactools-7.0.0b1-py3-none-any.whl
-RUN pip install /data/pvactools-7.0.0b1-py3-none-any.whl; pip cache purge
+COPY pvactools-7.0.0b1+tlmhc-py3-none-any.whl /data/pvactools-7.0.0b1+tlmhc-py3-none-any.whl
+RUN pip install /data/pvactools-7.0.0b1+tlmhc-py3-none-any.whl; pip cache purge
 RUN pip install git+https://github.com/griffithlab/bigmhc.git#egg=bigmhc; pip cache purge
 RUN pip install git+https://github.com/griffithlab/deepimmuno.git#egg=deepimmuno; pip cache purge
 RUN pip install git+https://github.com/griffithlab/ImmuScope.git#egg=ImmuScope; pip cache purge
+RUN pip install git+https://github.com/griffithlab/TL-MHC.git#egg=TL-MHC; pip cache purge
 RUN mhcflurry-downloads fetch
 RUN immuscope-download-weights
 
