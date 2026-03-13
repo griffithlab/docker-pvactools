@@ -73,12 +73,6 @@ RUN wget https://github.com/GfellerLab/MixMHC2pred/releases/download/v2.0.2.2/Mi
 RUN chmod +x MixMHC2pred_unix
 ENV PATH="$PATH:/opt/MixMHC2pred"
 
-#IMMUSCOPE
-RUN mkdir /opt/ImmuScope
-WORKDIR /opt/ImmuScope
-RUN wget -O ImmuScope-weights.tar.gz "https://zenodo.org/records/14810445/files/ImmuScope-weights.tar.gz?download=1"; tar -xzvf ImmuScope-weights.tar.gz; rm ImmuScope-weights.tar.gz
-ENV PATH="$PATH:/opt/ImmuScope"
-
 #pVACtools 7.0.0b1
 RUN mkdir /opt/mhcflurry_data
 ENV MHCFLURRY_DATA_DIR=/opt/mhcflurry_data
@@ -89,5 +83,6 @@ RUN pip install git+https://github.com/griffithlab/bigmhc.git#egg=bigmhc; pip ca
 RUN pip install git+https://github.com/griffithlab/deepimmuno.git#egg=deepimmuno; pip cache purge
 RUN pip install git+https://github.com/griffithlab/ImmuScope.git#egg=ImmuScope; pip cache purge
 RUN mhcflurry-downloads fetch
+RUN immuscope-download-weights
 
 CMD ["/bin/bash"]
