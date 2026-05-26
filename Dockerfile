@@ -14,7 +14,7 @@ MAINTAINER Susanna Kiwala <ssiebert@wustl.edu>
 
 LABEL \
     description="Image for pVACtools with IEDB" \
-    version="7.0.0b1_tlmhc_mhci_3.1.6_mhcii_3.1.12"
+    version="7.0.0_mhci_3.1.7_mhcii_3.1.12"
 
 RUN apt-get update \
     && apt-get install -y \
@@ -34,9 +34,9 @@ RUN pip install torch; pip cache purge
 RUN mkdir /opt/iedb
 COPY LICENSE /opt/iedb/.
 
-#IEDB MHC I 3.1.6
+#IEDB MHC I 3.1.7
 WORKDIR /opt/iedb
-RUN wget https://downloads.iedb.org/tools/mhci/3.1.6/IEDB_MHC_I-3.1.6.tar.gz; tar -xzvf IEDB_MHC_I-3.1.6.tar.gz; rm IEDB_MHC_I-3.1.6.tar.gz
+RUN wget https://downloads.iedb.org/tools/mhci/3.1.7/IEDB_MHC_I-3.1.7.tar.gz; tar -xzvf IEDB_MHC_I-3.1.7.tar.gz; rm IEDB_MHC_I-3.1.7.tar.gz
 WORKDIR /opt/iedb/mhc_i
 RUN ./configure
 COPY netmhccons_1_1_python_interface.3.1.1.py /opt/iedb/mhc_i/method/netmhccons-1.1-executable/netmhccons_1_1_executable/netmhccons_1_1_python_interface.py
@@ -73,17 +73,16 @@ RUN wget https://github.com/GfellerLab/MixMHC2pred/releases/download/v2.0.2.2/Mi
 RUN chmod +x MixMHC2pred_unix
 ENV PATH="$PATH:/opt/MixMHC2pred"
 
-#pVACtools 7.0.0b1_tlmhc
+#pVACtools 7.0.0
 RUN mkdir /opt/mhcflurry_data
 ENV MHCFLURRY_DATA_DIR=/opt/mhcflurry_data
-RUN mkdir /data
-COPY pvactools-7.0.0b1+tlmhc-py3-none-any.whl /data/pvactools-7.0.0b1+tlmhc-py3-none-any.whl
-RUN pip install /data/pvactools-7.0.0b1+tlmhc-py3-none-any.whl; pip cache purge
+RUN pip install pvactools==7.0.0
 RUN pip install git+https://github.com/griffithlab/bigmhc.git#egg=bigmhc; pip cache purge
 RUN pip install git+https://github.com/griffithlab/deepimmuno.git#egg=deepimmuno; pip cache purge
 RUN pip install git+https://github.com/griffithlab/ImmuScope.git#egg=ImmuScope; pip cache purge
 RUN pip install git+https://github.com/griffithlab/TL-MHC.git#egg=TL-MHC; pip cache purge
 RUN mhcflurry-downloads fetch
+ENV XDG_DATA_HOME=/opt
 RUN immuscope-download-weights
 
 CMD ["/bin/bash"]
