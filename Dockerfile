@@ -14,7 +14,7 @@ MAINTAINER Susanna Kiwala <ssiebert@wustl.edu>
 
 LABEL \
     description="Image for pVACtools with IEDB" \
-    version="7.0.0_mhci_3.1.7_mhcii_3.1.12"
+    version="7.0.1_mhci_3.1.7_mhcii_3.1.12"
 
 RUN apt-get update \
     && apt-get install -y \
@@ -73,10 +73,10 @@ RUN wget https://github.com/GfellerLab/MixMHC2pred/releases/download/v2.0.2.2/Mi
 RUN chmod +x MixMHC2pred_unix
 ENV PATH="$PATH:/opt/MixMHC2pred"
 
-#pVACtools 7.0.0
+#pVACtools 7.0.1
 RUN mkdir /opt/mhcflurry_data
 ENV MHCFLURRY_DATA_DIR=/opt/mhcflurry_data
-RUN pip install pvactools==7.0.0
+RUN pip install pvactools==7.0.1
 RUN pip install git+https://github.com/griffithlab/bigmhc.git#egg=bigmhc; pip cache purge
 RUN pip install git+https://github.com/griffithlab/deepimmuno.git#egg=deepimmuno; pip cache purge
 RUN pip install git+https://github.com/griffithlab/ImmuScope.git#egg=ImmuScope; pip cache purge
