@@ -14,7 +14,7 @@ MAINTAINER Susanna Kiwala <ssiebert@wustl.edu>
 
 LABEL \
     description="Image for pVACtools with IEDB" \
-    version="7.1.2_mhci_3.1.7_mhcii_3.1.12"
+    version="7.1.3_mhci_3.1.7_mhcii_3.1.12"
 
 RUN apt-get update \
     && apt-get install -y \
@@ -28,8 +28,9 @@ RUN apt-get update \
         unzip \
     && apt-get clean
 
-RUN pip install tensorflow==2.15.1; pip cache purge
-RUN pip install torch; pip cache purge
+RUN pip install setuptools==81.0.0 && pip cache purge
+RUN pip install tensorflow==2.15.1 && pip cache purge
+RUN pip install torch && pip cache purge
 
 RUN mkdir /opt/iedb
 COPY LICENSE /opt/iedb/.
@@ -52,7 +53,7 @@ WORKDIR /opt
 RUN git clone https://github.com/GfellerLab/MixMHCpred.git
 WORKDIR /opt/MixMHCpred
 RUN chmod +x MixMHCpred
-RUN pip install -r ./code/setup_pythonLibrary.txt; pip cache purge
+RUN pip install -r ./code/setup_pythonLibrary.txt && pip cache purge
 RUN apt-get update && apt-get install -y mafft && apt-get clean
 ENV PATH="$PATH:/opt/MixMHCpred"
 
@@ -69,18 +70,18 @@ RUN ln -s /tmp /opt/PRIME/temp
 #MixMHC2pred 2.0.2.2
 RUN mkdir /opt/MixMHC2pred
 WORKDIR /opt/MixMHC2pred
-RUN wget https://github.com/GfellerLab/MixMHC2pred/releases/download/v2.0.2.2/MixMHC2pred-2.0.zip; unzip MixMHC2pred-2.0.zip; rm MixMHC2pred-2.0.zip
+RUN wget https://github.com/GfellerLab/MixMHC2pred/releases/download/v2.0.2.2/MixMHC2pred-2.0.zip && unzip MixMHC2pred-2.0.zip && rm MixMHC2pred-2.0.zip
 RUN chmod +x MixMHC2pred_unix
 ENV PATH="$PATH:/opt/MixMHC2pred"
 
-#pVACtools 7.1.2
+#pVACtools 7.1.3
 RUN mkdir /opt/mhcflurry_data
 ENV MHCFLURRY_DATA_DIR=/opt/mhcflurry_data
-RUN pip install pvactools==7.1.2
-RUN pip install git+https://github.com/griffithlab/bigmhc.git#egg=bigmhc; pip cache purge
-RUN pip install git+https://github.com/griffithlab/deepimmuno.git#egg=deepimmuno; pip cache purge
-RUN pip install git+https://github.com/griffithlab/ImmuScope.git#egg=ImmuScope; pip cache purge
-RUN pip install git+https://github.com/griffithlab/TL-MHC.git#egg=TL-MHC; pip cache purge
+RUN pip install pvactools==7.1.3 && pip cache purge
+RUN pip install git+https://github.com/griffithlab/bigmhc.git#egg=bigmhc && pip cache purge
+RUN pip install git+https://github.com/griffithlab/deepimmuno.git#egg=deepimmuno && pip cache purge
+RUN pip install git+https://github.com/griffithlab/ImmuScope.git#egg=ImmuScope && pip cache purge
+RUN pip install git+https://github.com/griffithlab/TL-MHC.git#egg=TL-MHC && pip cache purge
 RUN mhcflurry-downloads fetch
 ENV XDG_DATA_HOME=/opt
 RUN immuscope-download-weights
